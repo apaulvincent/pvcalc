@@ -32,6 +32,8 @@ class Drawer extends Component {
         this._deltaY = new Animated.Value(0);
 
         this.state = {
+            fieldName: '',
+            fieldAmount: '',
             data: [],
             total: 0,
         }
@@ -85,6 +87,32 @@ class Drawer extends Component {
     };
 
 
+
+    handleChangeName = (text) => {
+        this.setState({
+            fieldName: text
+        })
+    }
+
+    handleChangeAmount = (text) => {
+        this.setState({
+            fieldAmount: text
+        })
+    }
+
+    handleSubmit = () => {
+
+        this.props.onSubmitEditing(this.state.fieldName, this.state.fieldAmount)
+
+        this.setState({
+            fieldName: '',
+            fieldAmount: ''
+        })
+
+        Keyboard.dismiss
+    }
+
+
     render() {
 
         const { data, total } = this.state
@@ -125,7 +153,31 @@ class Drawer extends Component {
 
                             <Text>Add Expense</Text>
 
-                            <TextInput onSubmitEditing={Keyboard.dismiss} keyboardType='numeric'></TextInput>
+
+                            <View style={{
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                            }}>
+                                <TextInput
+                                    placeholder="Name"
+                                    onChangeText={this.handleChangeName}
+                                    onSubmitEditing={Keyboard.dismiss}
+                                    style={{ width: '50%' }}
+                                ></TextInput>
+
+                                <TextInput
+                                    placeholder="Amount"
+                                    onChangeText={this.handleChangeAmount}
+                                    onSubmitEditing={Keyboard.dismiss}
+                                    style={{ width: '50%' }}
+                                    keyboardType="numeric"
+                                ></TextInput>
+                            </View>
+
+                            <TouchableOpacity onPress={this.handleSubmit}>
+                                <Text>Add</Text>
+                            </TouchableOpacity>
+
 
                         </View>
                     </ScrollView>

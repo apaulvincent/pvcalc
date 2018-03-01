@@ -72,7 +72,7 @@ class Home extends Component {
 
     }
 
-    handleDelete(id){
+    handleDelete(id) {
         this.props.deleteExpense(id)
     }
 

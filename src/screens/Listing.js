@@ -63,6 +63,21 @@ class Listing extends Component {
         })
     }
 
+    handleSubmitEditing(name, amount) {
+
+        if (text == '') return;
+
+        const d = new Date();
+        const id = d.getTime();
+        const _name = name;
+        const _amount = amount;
+
+        const collection = [];
+
+        // TODO:
+        // this.props.updateExpense(_name, _amount)
+    }
+
     render() {
 
         return (
@@ -72,8 +87,7 @@ class Listing extends Component {
                     {this.renderList()}
                 </ScrollView>
 
-
-                <Drawer data={this.state.expense}></Drawer>
+                <Drawer data={this.state.expense} onSubmitEditing={this.handleSubmitEditing}></Drawer>
                 <View style={styles.spacer}></View>
 
             </View>
