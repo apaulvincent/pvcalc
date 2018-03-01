@@ -18,8 +18,8 @@ import {
 
 import { ListItemDrawer } from '../components/ListItem'
 
-import {ButtonWithInput} from '../components/Button'
-import {Drawer} from '../components/Drawer'
+import { ButtonWithInput } from '../components/Button'
+import { Drawer } from '../components/Drawer'
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 

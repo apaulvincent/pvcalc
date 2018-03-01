@@ -16,7 +16,7 @@ import {
 } from 'react-native'
 
 import { ListItemDrawer } from '../components/ListItem'
-import {ButtonWithInput} from '../components/Button'
+import { ButtonWithInput } from '../components/Button'
 
 
 import { bindActionCreators } from "redux";
@@ -46,9 +46,16 @@ class Home extends Component {
 
         // util.log(this.props.nav)
 
-        this.setState({
-            expenses: this.props.expenses
-        })
+        this.props.fetchExpenses();
+
+        // this.setState({
+        //     expenses: this.props.expenses
+        // })
+    }
+
+    componentDidMount() {
+
+        // util.log(this.props)
     }
 
     handlePress(exp) {
@@ -65,9 +72,13 @@ class Home extends Component {
 
     }
 
+    handleDelete(id){
+        this.props.deleteExpense(id)
+    }
+
     renderList() {
-        return this.state.expenses.map((e, i) => {
-            return <ListItemDrawer key={i}>
+        return this.props.expenses.map((e, i) => {
+            return <ListItemDrawer key={i} onDelete={() => this.handleDelete(e.id)}>
                 <TouchableOpacity onPress={() => this.handlePress(e)} activeOpacity={1}>
                     <View style={styles.itemWrap}>
                         <Text style={styles.h1}>{e.name}</Text>
@@ -78,8 +89,17 @@ class Home extends Component {
         })
     }
 
-    onPress() {
-        alert('mee')
+    onPress = (text) => {
+
+        if (text == '') return;
+
+        const d = new Date();
+        const id = d.getTime();
+        const name = text;
+
+        const collection = [];
+
+        this.props.addExpense(id, name, collection)
     }
 
     render() {
@@ -90,8 +110,8 @@ class Home extends Component {
                     {this.renderList()}
                 </ScrollView>
                 <ButtonWithInput
-                onPress={this.onPress}
-                placeholder="Add Expense"
+                    onPress={this.onPress}
+                    placeholder="Add Expense"
                 >
                 </ButtonWithInput>
             </View>

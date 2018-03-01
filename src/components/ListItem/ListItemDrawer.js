@@ -33,7 +33,7 @@ export default class ListItemDrawer extends Component {
 
     render() {
 
-        const { height } = this.props
+        const { height, onDelete } = this.props
 
         return (
             <View style={styles.container}>
@@ -68,7 +68,7 @@ export default class ListItemDrawer extends Component {
                                 })
                             }]
                         }
-                        ]}><TouchableOpacity>
+                        ]}><TouchableOpacity onPress={onDelete}>
                             <Icon name="sentiment-neutral" style={styles.button}></Icon>
                         </TouchableOpacity></Animated.View>
                 </View>
@@ -91,9 +91,11 @@ export default class ListItemDrawer extends Component {
 }
 
 ListItemDrawer.propTypes = {
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    onDelete: PropTypes.func
 }
 
 ListItemDrawer.defaultProps = {
-    height: 85
+    height: 85,
+    onDelete: () => {}
 }

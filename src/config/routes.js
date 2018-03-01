@@ -20,10 +20,11 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import * as util from '../helpers'
 
 
-const DrawBtn = ({navigation}) => {
-    return(
+const DrawBtn = ({ navigation }) => {
+
+    return (
         <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerOpen') }
+            onPress={() => navigation.navigate('DrawerOpen')}
         ><Icon name="menu" style={{
             color: '#fff',
             fontSize: 32,
@@ -39,7 +40,7 @@ const MainStack = StackNavigator(
         Home: {
             screen: Home,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: 'E',
+                headerTitle: 'Expenses',
                 headerLeft: <DrawBtn navigation={navigation} />, // Hide Back Button
                 headerRight: null,
                 headerStyle: {
@@ -58,7 +59,7 @@ const MainStack = StackNavigator(
         Listing: {
             screen: Listing,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: 'L',
+                headerTitle: navigation.state.params.expense.name,
                 headerStyle: {
                     backgroundColor: '#ff8500',
                     elevation: 0,
@@ -84,9 +85,9 @@ export default DrawerNavigator(
         Home: {
             screen: MainStack
         },
-        Options: {
-            screen: Options
-        }
+        // Options: {
+        //     screen: Options
+        // }
     }, {
         initialRouteName: 'Home',
         drawerPosition: 'left',
