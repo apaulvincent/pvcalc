@@ -50,6 +50,9 @@
 		0F060AA294864118843AAF53 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 667B3B87BF654B8088D49A8E /* SimpleLineIcons.ttf */; };
 		616C600A012244CBBB60E70A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7348BD155C62492FB46A4570 /* Zocial.ttf */; };
 		72D1DCE5F26A40BABB8D3900 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6CB46CB7DA45E2813E8277 /* libRNVectorIcons.a */; };
+		689CDACAF42D4C9184A88897 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405878FBB7A2419D95E2E995 /* libRealmReact.a */; };
+		2C8697B6A05E491294ACFF52 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1B1A7704B84ACB8FF8B07D /* libc++.tbd */; };
+		67950B5AF4BB410D892AA1E9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 046E220C85584FAB91E6FD88 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -316,6 +319,10 @@
 		7348BD155C62492FB46A4570 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6B1E8B1F2250425CABB797F9 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; name = "RNVectorIcons.xcodeproj"; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		6E6CB46CB7DA45E2813E8277 /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		6899F5781A8D432EB1C7C905 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; name = "RealmReact.xcodeproj"; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		405878FBB7A2419D95E2E995 /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		9B1B1A7704B84ACB8FF8B07D /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		046E220C85584FAB91E6FD88 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +354,9 @@
 				EC562383A2434286A16878E8 /* libInteractable.a in Frameworks */,
 				E46BE682365E47B09146510A /* libRNCalendarEvents.a in Frameworks */,
 				72D1DCE5F26A40BABB8D3900 /* libRNVectorIcons.a in Frameworks */,
+				689CDACAF42D4C9184A88897 /* libRealmReact.a in Frameworks */,
+				2C8697B6A05E491294ACFF52 /* libc++.tbd in Frameworks */,
+				67950B5AF4BB410D892AA1E9 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +497,8 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				9B1B1A7704B84ACB8FF8B07D /* libc++.tbd */,
+				046E220C85584FAB91E6FD88 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -527,6 +539,7 @@
 				B347165436AE4B4DB4FDAB13 /* Interactable.xcodeproj */,
 				52E70ED3CE3349B38DFEEC65 /* RNCalendarEvents.xcodeproj */,
 				6B1E8B1F2250425CABB797F9 /* RNVectorIcons.xcodeproj */,
+				6899F5781A8D432EB1C7C905 /* RealmReact.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1131,12 +1144,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Debug;
@@ -1160,12 +1175,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Release;
@@ -1190,6 +1207,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Debug;
@@ -1213,6 +1231,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Release;
@@ -1245,12 +1264,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Debug;
@@ -1283,12 +1304,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-interactable\ios\Interactable/**",
 					"$(SRCROOT)\..\node_modules\react-native-calendar-events",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\realm\src/**",
 				);
 			};
 			name = Release;
@@ -1316,6 +1339,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1340,6 +1364,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

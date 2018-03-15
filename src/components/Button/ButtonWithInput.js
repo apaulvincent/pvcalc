@@ -55,7 +55,7 @@ class ButtonWithInput extends Component {
                     <Text
                         style={ButtonWithInputStyles.addButtonText}
                     >
-                        <Icon name="send" style={ButtonWithInputStyles.icon}></Icon>
+                        <Icon name="add-box" style={ButtonWithInputStyles.icon}></Icon>
                     </Text>
                 </TouchableOpacity>
 

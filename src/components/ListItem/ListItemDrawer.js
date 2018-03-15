@@ -23,7 +23,16 @@ export default class ListItemDrawer extends Component {
 
     constructor(props) {
         super(props);
+
         this._deltaX = new Animated.Value(0);
+        this.transit = new Animated.Value(0);
+    }
+
+    componentDidMount() {
+        Animated.timing(this.transit, {
+            toValue: 1,
+            duration: 320,
+        }).start();
     }
 
     onDrawerSnap(event) {
@@ -36,8 +45,18 @@ export default class ListItemDrawer extends Component {
         const { height, onDelete } = this.props
 
         return (
-            <View style={styles.container}>
+            <Animated.View style={[styles.container, {
+                opacity: this.transit,
+                transform: [
+                    { scale: this.transit }
+                ],
+                height: this.transit.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 80],
+                    extrapolate: 'clamp',
+                })
 
+            }]}>
                 <View style={[styles.background, { height: height }]}>
                     <Animated.View style={
                         [{
@@ -53,7 +72,7 @@ export default class ListItemDrawer extends Component {
                             }]
                         }
                         ]}><TouchableOpacity>
-                            <Icon name="sentiment-dissatisfied" style={styles.button}></Icon>
+                            <Icon name="mode-edit" style={styles.button}></Icon>
                         </TouchableOpacity></Animated.View>
                     <Animated.View style={
                         [{
@@ -69,7 +88,7 @@ export default class ListItemDrawer extends Component {
                             }]
                         }
                         ]}><TouchableOpacity onPress={onDelete}>
-                            <Icon name="sentiment-neutral" style={styles.button}></Icon>
+                            <Icon name="clear" style={styles.button}></Icon>
                         </TouchableOpacity></Animated.View>
                 </View>
 
@@ -83,7 +102,8 @@ export default class ListItemDrawer extends Component {
                     </View>
                 </Interactable.View>
 
-            </View>
+            </Animated.View>
+
         )
 
     }
@@ -97,5 +117,5 @@ ListItemDrawer.propTypes = {
 
 ListItemDrawer.defaultProps = {
     height: 85,
-    onDelete: () => {}
+    onDelete: () => { }
 }

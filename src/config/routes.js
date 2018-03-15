@@ -59,7 +59,7 @@ const MainStack = StackNavigator(
         Listing: {
             screen: Listing,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: navigation.state.params.expense.name,
+                headerTitle: navigation.state.params.expense.name + ' Expenses',
                 headerStyle: {
                     backgroundColor: '#ff8500',
                     elevation: 0,

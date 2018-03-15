@@ -1,52 +1,86 @@
-import { AsyncStorage } from 'react-native'
 import { takeEvery, select, call, put } from 'redux-saga/effects'
+
+import realm, {
+    fetchExpenses,
+    insertExpense,
+    deleteExpense,
+    updateExpense,
+    addExpenseItem,
+    deleteExpenseItem
+} from '../config/services'
+
 
 import {
     FETCH_EXPENSES,
     RETURN_EXPENSES,
     ADD_EXPENSE,
-    DELETE_EXPENSE
+    DELETE_EXPENSE,
+    UPDATE_EXPENSE,
+
+    ADD_EXPENSE_ITEM,
+    DELETE_EXPENSE_ITEM,
+
 } from '../actions'
 
 import * as util from '../helpers'
 
 
-const fetchExpenses = async () => {
-
-    try {
-
-        let expenses = await AsyncStorage.getItem('pvexp');
-        return expenses ? JSON.parse(expenses) : [];
-
-    } catch (error) {
-
-        alert(error)
-    }
-
-}
 
 function* fetchInitialExpenses(action) {
 
-    const result = yield call(fetchExpenses)
+    const result = yield call(fetchExpenses) // YOU CAN PASS ARGUMENTS HERE LIKE :  call( fn , args )
 
-    yield put({ type: RETURN_EXPENSES, result });
+    yield put({ type: RETURN_EXPENSES, result }); // CALL ANOTHER ACTION
 }
 
 
-function* updateExpenses(action) {
+function* insertRealmExpenses(action) {
 
-    const expenses = yield select(state => state.expenses);
-    AsyncStorage.setItem('pvexp', JSON.stringify(expenses));
+    const newExpense = {
+        id: action.id,
+        name: action.name,
+        collection: action.collection,
+        createdAt: action.createdAt,
+        updatedAt: action.updatedAt
+    }
+
+    insertExpense(newExpense);
 
 }
+
+
+function* deleteRealmExpense(action) {
+    deleteExpense(action.id);
+}
+
+
+function* addRealmExpenseItem(action) {
+
+    // const expenses = yield select(state => state.expenses);  // 'SELECT' HAS ACCESS TO REDUX STATE, PRETTY NEAT HUH
+
+    addExpenseItem(action.id, action.collection)
+
+}
+
+function* deleteRealmExpenseItem(action) {
+
+    deleteExpenseItem(action.itemId)
+
+}
+
 
 // LISTENERS
 export default function* rootSaga() {
 
     // LISTEN AND MAKE SIDE-EFFECTS^
     yield takeEvery(FETCH_EXPENSES, fetchInitialExpenses);
-    yield takeEvery(ADD_EXPENSE, updateExpenses);
-    yield takeEvery(DELETE_EXPENSE, updateExpenses);
+    yield takeEvery(ADD_EXPENSE, insertRealmExpenses);
+    yield takeEvery(DELETE_EXPENSE, deleteRealmExpense);
+
+    // yield takeEvery(UPDATE_EXPENSE, updateExpenses);
+
+    yield takeEvery(ADD_EXPENSE_ITEM, addRealmExpenseItem);
+    yield takeEvery(DELETE_EXPENSE_ITEM, deleteRealmExpenseItem);
 
 
 }

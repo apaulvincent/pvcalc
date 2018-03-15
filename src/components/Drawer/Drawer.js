@@ -3,7 +3,9 @@ import {
     View,
     Dimensions,
     Text,
+    Button,
     ScrollView,
+    TouchableOpacity,
     Animated,
     TextInput,
     Keyboard
@@ -51,11 +53,19 @@ class Drawer extends Component {
 
     }
 
+    componentWillReceiveProps(np) {
+
+        this.setState({
+            data: np.data,
+            total: np.data.collection.reduce((a, b) => a + parseInt(b.amount), 0)
+        })
+
+    }
+
     componentWillUnmount() {
         this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener.remove();
     }
-
 
     _keyboardDidShow = (event) => {
 
@@ -112,6 +122,10 @@ class Drawer extends Component {
         Keyboard.dismiss
     }
 
+    onDrawerSnap(event) {
+        const snapPointId = event.nativeEvent.id;
+        console.log(`drawer state is ${snapPointId}`);
+    }
 
     render() {
 
@@ -125,6 +139,7 @@ class Drawer extends Component {
                     verticalOnly={true}
                     animatedValueY={this._deltaY}
                     initialPosition={{ x: 0, y: Screen.height - 120 }}
+                    onSnap={this.onDrawerSnap}
                     snapPoints={[
                         { y: (Screen.height - 120), damping: 0.7 },
                         { y: Screen.height / 2, damping: 0.7 },
@@ -135,13 +150,13 @@ class Drawer extends Component {
                         <View style={styles.dragee}></View>
 
                         <View style={styles.headerContent}>
-                            <Text style={{ fontSize: 16 }}>{data.name}</Text>
+                            <Text style={{ fontSize: 16 }}>Total</Text>
 
                             <View style={{
                                 flexDirection: "row",
                                 justifyContent: "space-between",
                             }}>
-                                <Text style={{ fontSize: 28 }}>Total</Text>
+                                <Text style={{ fontSize: 28 }}>{data.name}</Text>
                                 <Text style={{ fontSize: 28 }}>{total}</Text>
                             </View>
 
@@ -153,31 +168,35 @@ class Drawer extends Component {
 
                             <Text>Add Expense</Text>
 
-
                             <View style={{
                                 flexDirection: "row",
                                 justifyContent: "space-between",
+                                marginBottom: 20
                             }}>
                                 <TextInput
+                                    ref="nameInput"
+                                    blurOnSubmit={false}
+                                    value={this.state.fieldName}
+                                    returnKeyType={"next"}
                                     placeholder="Name"
                                     onChangeText={this.handleChangeName}
-                                    onSubmitEditing={Keyboard.dismiss}
+                                    onSubmitEditing={() => this.refs.amountInput.focus()}
                                     style={{ width: '50%' }}
                                 ></TextInput>
 
                                 <TextInput
+                                    ref="amountInput"
+                                    blurOnSubmit={true}
+                                    value={this.state.fieldAmount}
                                     placeholder="Amount"
                                     onChangeText={this.handleChangeAmount}
-                                    onSubmitEditing={Keyboard.dismiss}
+                                    onSubmitEditing={this.handleSubmit}
                                     style={{ width: '50%' }}
                                     keyboardType="numeric"
                                 ></TextInput>
                             </View>
 
-                            <TouchableOpacity onPress={this.handleSubmit}>
-                                <Text>Add</Text>
-                            </TouchableOpacity>
-
+                            <Button onPress={this.handleSubmit} title="Add Expense" />
 
                         </View>
                     </ScrollView>

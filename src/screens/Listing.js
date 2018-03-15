@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as actionCreators from "../actions";
+
 import ES from 'react-native-extended-stylesheet'
 
 import {
@@ -40,19 +43,45 @@ class Listing extends Component {
 
     componentWillMount() {
 
+        const id = this.props.navigation.state.params.expense.id
+        const expense = this.props.expenses.filter(exp => id == exp.id)
+
         this.setState({
-            expense: this.props.navigation.state.params.expense
+            expense: expense[0]
         })
+
+    }
+
+    componentWillReceiveProps(np) {
+
+        const id = this.props.navigation.state.params.expense.id
+        const expense = np.expenses.filter(exp => id == exp.id)
+
+        this.setState({
+            expense: expense[0]
+        })
+
     }
 
     handlePress() {
-        util.log('moo')
+        util.log('Todo')
+    }
+
+    handleDelete(id) {
+
+        const { expense } = this.state
+
+        this.props.deleteExpenseItem(expense.id, id)
     }
 
     renderList() {
 
-        return this.state.expense.collection.map((e, i) => {
-            return <ListItemDrawer key={i} onPress={this.handlePress}>
+        const { expense } = this.state
+
+        if (expense.collection == undefined) return
+
+        return expense.collection.map((e, i) => {
+            return <ListItemDrawer key={util.keygen(e.id, e.name)} onPress={this.handlePress} onDelete={() => this.handleDelete(e.id)}>
                 <TouchableOpacity onPress={this.handlePress} activeOpacity={1}>
                     <View style={styles.itemWrap}>
                         <Text style={styles.h1}>{e.amount}</Text>
@@ -63,19 +92,23 @@ class Listing extends Component {
         })
     }
 
-    handleSubmitEditing(name, amount) {
+    handleSubmitEditing = (name, amount) => {
 
-        if (text == '') return;
+        if (name == '' || amount == '') return;
+
+        const { expense } = this.state
 
         const d = new Date();
-        const id = d.getTime();
-        const _name = name;
-        const _amount = amount;
 
-        const collection = [];
+        const collection = {
+            id: util.guid(),
+            name: name,
+            amount: parseInt(amount),
+            createdAt: d,
+            updatedAt: d,
+        };
 
-        // TODO:
-        // this.props.updateExpense(_name, _amount)
+        this.props.addExpenseItem(expense.id, collection)
     }
 
     render() {
@@ -103,7 +136,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Listing)
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators(actionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Listing)
 
 
 const styles = ES.create({

@@ -38,7 +38,8 @@ class Home extends Component {
         this._deltaX = new Animated.Value(0);
 
         this.state = {
-            expenses: []
+            expenses: [],
+            expense: null
         }
     }
 
@@ -78,11 +79,11 @@ class Home extends Component {
 
     renderList() {
         return this.props.expenses.map((e, i) => {
-            return <ListItemDrawer key={i} onDelete={() => this.handleDelete(e.id)}>
+            return <ListItemDrawer key={util.keygen(e.id, e.name)} onDelete={() => this.handleDelete(e.id)}>
                 <TouchableOpacity onPress={() => this.handlePress(e)} activeOpacity={1}>
                     <View style={styles.itemWrap}>
                         <Text style={styles.h1}>{e.name}</Text>
-                        <Text>{e.collection.length + (e.collection.length == 1 ? 'Item' : 'Items')}</Text>
+                        <Text>{e.collection.length + (e.collection.length == 1 ? ' Item' : ' Items')}</Text>
                     </View>
                 </TouchableOpacity>
             </ListItemDrawer>
@@ -93,13 +94,14 @@ class Home extends Component {
 
         if (text == '') return;
 
-        const d = new Date();
-        const id = d.getTime();
+        const id = util.guid();
         const name = text;
+        const createdAt = new Date();
+        const updatedAt = new Date();
 
         const collection = [];
 
-        this.props.addExpense(id, name, collection)
+        this.props.addExpense(id, name, collection, createdAt, updatedAt)
     }
 
     render() {
