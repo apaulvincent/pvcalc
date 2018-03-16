@@ -39,7 +39,6 @@ export const fetchExpenses = () => new Promise((resolve, reject) => {
     Realm.open(dbOptions).then(realm => {
 
         let expenses = realm.objects(EXPENSES_SCHEMA);
-
         let sortedExpenses = expenses.sorted('updatedAt', true)
 
         resolve(sortedExpenses);
@@ -47,9 +46,7 @@ export const fetchExpenses = () => new Promise((resolve, reject) => {
     }).catch((error) => reject(error))
 })
 
-
-
-export const insertExpense = (expense) => {
+export const addExpense = (expense) => {
     Realm.open(dbOptions).then(realm => {
 
         try {
@@ -64,11 +61,6 @@ export const insertExpense = (expense) => {
 
     }).catch((error) => reject(error))
 }
-
-
-
-
-
 
 export const updateExpense = (id, name, collection, updatedAt) => {
 
@@ -94,58 +86,6 @@ export const updateExpense = (id, name, collection, updatedAt) => {
     }).catch(error => alert(error))
 
 }
-
-
-
-export const addExpenseItem = (parentId, collection) => {
-
-    Realm.open(dbOptions).then(realm => {
-
-        try {
-
-            realm.write(() => {
-
-                let parent = realm.objectForPrimaryKey(EXPENSES_SCHEMA, parentId);
-
-                parent.collection.push(collection)
-
-            })
-
-        } catch (e) {
-            alert(e)
-        }
-
-
-    }).catch(error => alert(error))
-
-}
-
-
-export const deleteExpenseItem = (id) => {
-
-    Realm.open(dbOptions).then(realm => {
-
-        try {
-
-            realm.write(() => {
-
-                let item = realm.objectForPrimaryKey(EXPENSE_ITEM_SCHEMA, id);
-
-                realm.delete(item);
-
-            })
-
-        } catch (e) {
-            alert(e)
-        }
-
-
-    }).catch(error => alert(error))
-
-}
-
-
-
 
 
 export const deleteExpense = (id) => {
@@ -182,6 +122,52 @@ export const fetchExpenseItem = () => new Promise((resolve, reject) => {
 
     }).catch((error) => reject(error))
 })
+
+
+export const addExpenseItem = (parentId, collection) => {
+
+    Realm.open(dbOptions).then(realm => {
+
+        try {
+
+            realm.write(() => {
+
+                let parent = realm.objectForPrimaryKey(EXPENSES_SCHEMA, parentId);
+                parent.collection.push(collection)
+
+            })
+
+        } catch (e) {
+            alert(e)
+        }
+
+
+    }).catch(error => alert(error))
+
+}
+
+
+export const deleteExpenseItem = (id) => {
+
+    Realm.open(dbOptions).then(realm => {
+
+        try {
+
+            realm.write(() => {
+
+                let item = realm.objectForPrimaryKey(EXPENSE_ITEM_SCHEMA, id);
+                realm.delete(item);
+
+            })
+
+        } catch (e) {
+            alert(e)
+        }
+
+
+    }).catch(error => alert(error))
+
+}
 
 
 

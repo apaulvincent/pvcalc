@@ -2,7 +2,7 @@ import { takeEvery, select, call, put } from 'redux-saga/effects'
 
 import realm, {
     fetchExpenses,
-    insertExpense,
+    addExpense,
     deleteExpense,
     updateExpense,
     addExpenseItem,
@@ -34,7 +34,7 @@ function* fetchInitialExpenses(action) {
 }
 
 
-function* insertRealmExpenses(action) {
+function* addRealmExpenses(action) {
 
     const newExpense = {
         id: action.id,
@@ -44,7 +44,7 @@ function* insertRealmExpenses(action) {
         updatedAt: action.updatedAt
     }
 
-    insertExpense(newExpense);
+    addExpense(newExpense);
 
 }
 
@@ -74,10 +74,10 @@ export default function* rootSaga() {
 
     // LISTEN AND MAKE SIDE-EFFECTS^
     yield takeEvery(FETCH_EXPENSES, fetchInitialExpenses);
-    yield takeEvery(ADD_EXPENSE, insertRealmExpenses);
+    yield takeEvery(ADD_EXPENSE, addRealmExpenses);
     yield takeEvery(DELETE_EXPENSE, deleteRealmExpense);
-
     // yield takeEvery(UPDATE_EXPENSE, updateExpenses);
+
 
     yield takeEvery(ADD_EXPENSE_ITEM, addRealmExpenseItem);
     yield takeEvery(DELETE_EXPENSE_ITEM, deleteRealmExpenseItem);

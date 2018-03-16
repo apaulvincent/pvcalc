@@ -65,6 +65,8 @@ const todos = (state = [], action) => {
 
         case DELETE_EXPENSE_ITEM:
 
+            util.log(state)
+
             const newExp2 = state.map(exp => {
 
                 if (exp.id == action.id) {
